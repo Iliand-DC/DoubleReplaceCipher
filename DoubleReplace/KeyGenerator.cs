@@ -6,6 +6,10 @@ namespace DoubleReplace
         public double[] keyPart;
         public int[] key;
         Random rnd = new Random();
+        //Возьмём четыре случайных числа в диапазоне от 0 до 1
+        //Через ассоциативный массив каждому присвоим "ранг" - его место по
+        // величине относительно других чисел
+        //Вместо чисел запишем в массив их ранг и получим "случайный" ключ.
         public KeyGenerator(int size)
         {
             keyPart = new double[size];

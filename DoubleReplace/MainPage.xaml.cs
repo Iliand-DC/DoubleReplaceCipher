@@ -11,10 +11,14 @@ public partial class MainPage : ContentPage
 	void Code_Clicked(object sender, EventArgs e)
 	{
 		input = Input.Text;
+
+		TextToMatrix translate = new TextToMatrix(input);
+
 		Coder coder = new Coder(input);
+
 		var new_matrix = coder.Cipher();
 
-		output = coder.MatrixToText(new_matrix);
+		output = translate.MatrixToText(new_matrix);
 		Output.Text = output;
 
 		KeyStrings.Text = coder.GetKeyString();
@@ -28,23 +32,26 @@ public partial class MainPage : ContentPage
 	void Decode_Clicked(object sender, EventArgs e)
 	{
 		input = Output.Text;
-		var decode_key_string = DecodeKeyStrings.Text;
+
+        TextToMatrix translate = new TextToMatrix(input);
+
+        var decode_key_string = DecodeKeyStrings.Text;
 		var decode_key_column = DecodeKeyColumns.Text;
-		Coder coder = new Coder(input);
 
-
-		decode_key_string = coder.GetKeyWithSplitter(decode_key_string);
-
+		decode_key_string = translate.GetKeyWithSplitter(decode_key_string);
+        decode_key_column = translate.GetKeyWithSplitter(decode_key_column);
 
         int[] keyString = decode_key_string.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
-		int[] keyColumn = decode_key_column.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
-		Console.WriteLine(keyString);
-		Console.WriteLine(keyColumn);
+        int[] keyColumn = decode_key_column.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
 
+        Console.WriteLine(keyString);
+        Console.WriteLine(keyColumn);
 
-		var old_matrix = coder.Decipher(keyString, keyColumn);
-		output = coder.MatrixToText(old_matrix);
+        Decoder decoder = new Decoder(keyString,keyColumn,translate.GetMatrix(),translate.GetSize());
 
+		var new_matrix = decoder.Decipher();
+
+		output = translate.MatrixToText(new_matrix);
 
         Input.Text = output;
 	}

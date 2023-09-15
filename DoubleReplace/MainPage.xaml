@@ -11,7 +11,7 @@
 
             <HorizontalStackLayout
                 Spacing="25"
-                Padding="30,0"
+                Padding="15,0"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 >
@@ -41,7 +41,7 @@
             </HorizontalStackLayout>
             <HorizontalStackLayout
                 Spacing="25"
-                Padding="30,0"
+                Padding="15,0"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 >
